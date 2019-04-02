@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "651182487809",
+    "firebase_url": "https://ique-fome.firebaseio.com",
+    "project_id": "ique-fome",
+    "storage_bucket": "ique-fome.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651182487809:android:d073445f5c5538b1",
+        "android_client_info": {
+          "package_name": "br.com.alexandre_salgueirinho.ique_fome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "651182487809-qn7bp892s4juh1hmeoahs22mpmgjuoe0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.alexandre_salgueirinho.ique_fome",
+            "certificate_hash": "edb5044374502a115c770c9d4809f55258c3b753"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYQfLVKupwh3wF0snL_ReqFZGXzGwX6Fc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "651182487809-o7dk695hs2nei8mpbdbgldo9u2d6to98.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
