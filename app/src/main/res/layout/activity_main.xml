@@ -8,7 +8,7 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     tools:context=".SignUpActivity"
-    android:background="#ffbe5d">
+    android:background="@color/corDeFundo">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,8 +43,8 @@
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:hint="Usuário"
+            android:fontFamily="@string/fontFamily"
+            android:hint="@string/usuario"
             android:layout_margin="15dp"
             android:inputType="textEmailAddress"
             android:textColorHint="#cc3a3a"  />
@@ -53,8 +53,8 @@
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:hint="Senha"
+            android:fontFamily="@string/fontFamily"
+            android:hint="@string/senha"
             android:inputType="textPassword"
             android:layout_margin="15dp"
             android:textColorHint="#cc3a3a"  />
@@ -65,17 +65,32 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="15dp"
-            android:text="Login"
+            android:text="@string/login"
             android:textAllCaps="false"
-            android:textColor="#cc3a3a"
+            android:textColor="@color/corDeTexto"
             android:background="@drawable/button_bg_rounded_corners"/>
+
+        <TextView
+            android:id="@+id/textViewMissPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/esqueceuSenha"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="#cc3a3a"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"  />
 
         <TextView
             android:id="@+id/textViewSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="Não possui uma conta ainda? Cadastre-se aqui."
+            android:text="@string/seCadastre"
             android:textAlignment="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColor="#cc3a3a"

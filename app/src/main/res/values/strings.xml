@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">iQue_Fome</string>
+    <string name="esqueceuSenha">Esqueceu sua senha? Clique aqui.</string>
+    <string name="seCadastre">Não possui uma conta ainda? Cadastre-se aqui.</string>
+    <string name="fontFamily">sans-serif</string>
+    <string name="senha">Senha</string>
+    <string name="usuario">Usuário</string>
+    <string name="login">Login</string>
+    <string name="ique_fome_Titulo">iQue Fome</string>
 </resources>

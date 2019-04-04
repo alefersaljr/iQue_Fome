@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
-    tools:context=".SignUpActivity"
-    android:background="#E8DFC8">
+    android:background="@color/corDeFundo"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    tools:context=".SignUpActivity">
 
     <RelativeLayout
+        android:id="@+id/Logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
@@ -19,56 +20,140 @@
             android:id="@+id/textTituloiQueFome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:fontFamily="sans-serif"
-            android:textStyle="italic"
             android:hint="iQue Fome"
-            android:layout_margin="30dp"
-            android:textColorHint="#CC2A23"
             android:textAlignment="center"
-            android:textSize="50dp"/>
-
+            android:textColorHint="#CC2A23"
+            android:textSize="50dp"
+            android:textStyle="italic" />
 
     </RelativeLayout>
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/Scrow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_above="@+id/BotaoCadastrar"
+        android:layout_below="@+id/Logo"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextEmail"
+        <LinearLayout
+            android:id="@+id/Campos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:hint="Email"
-            android:layout_margin="15dp"
-            android:inputType="textEmailAddress"
-            android:textColorHint="#CC2A23" />
+            android:layout_above="@+id/BotaoCadastrar"
+            android:layout_below="@+id/Logo"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:hint="Senha"
-            android:inputType="textPassword"
-            android:layout_margin="15dp"
-            android:textColorHint="#CC2A23" />
+            <EditText
+                android:id="@+id/editTextNome"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Nome"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/corDeTexto" />
+
+            <EditText
+                android:id="@+id/editTextSobreNome"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Sobrenome"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/corDeTexto" />
+
+            <EditText
+                android:id="@+id/editTextTelefone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Telefone"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/corDeTexto" />
+
+            <EditText
+                android:id="@+id/editTextCelular"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Celular"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/corDeTexto" />
+
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/corDeTexto" />
+
+            <EditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Senha"
+                android:inputType="textPassword"
+                android:textColorHint="#CC2A23" />
+
+            <Spinner
+                android:id="@+id/SpinnerTipoUser"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Tipo de usuário"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/corDeTexto" />
+
+            <EditText
+                android:id="@+id/editTextIndicado"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Indicado Por"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/corDeTexto" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/BotaoCadastrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/buttonSignUp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_margin="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_bg_rounded_corners"
             android:text="Cadastrar"
             android:textAllCaps="false"
-            android:textColor="#CC2A23"
-            android:background="@drawable/button_bg_rounded_corners"/>
+            android:textColor="#CC2A23" />
 
         <TextView
             android:id="@+id/textViewLogin"
@@ -79,18 +164,16 @@
             android:textAlignment="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColor="#CC2A23"
-            android:textSize="15dp"
-            />
+            android:textSize="13dp" />
 
+    </LinearLayout>
 
-        </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/progressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:visibility="gone" />
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 
 </RelativeLayout>
