@@ -8,4 +8,9 @@
         <item name="colorAccent">#ffbe5b</item>
     </style>
 
+    <style name="MySpinnerLook"
+        parent="@android:style/Widget.TextView.SpinnerItem"
+        color="#CC2A23">
+    </style>
+
 </resources>

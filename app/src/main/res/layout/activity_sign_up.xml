@@ -58,7 +58,6 @@
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
                 android:hint="Nome"
-                android:inputType="textEmailAddress"
                 android:textColorHint="@color/corDeTexto" />
 
             <EditText
@@ -68,7 +67,6 @@
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
                 android:hint="Sobrenome"
-                android:inputType="textEmailAddress"
                 android:textColorHint="@color/corDeTexto" />
 
             <EditText
@@ -78,7 +76,7 @@
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
                 android:hint="Telefone"
-                android:inputType="textEmailAddress"
+                android:inputType="phone"
                 android:textColorHint="@color/corDeTexto" />
 
             <EditText
@@ -88,7 +86,7 @@
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
                 android:hint="Celular"
-                android:inputType="textEmailAddress"
+                android:inputType="phone"
                 android:textColorHint="@color/corDeTexto" />
 
             <EditText
@@ -112,14 +110,14 @@
                 android:textColorHint="#CC2A23" />
 
             <Spinner
-                android:id="@+id/SpinnerTipoUser"
+                android:id="@+id/spinnerUser"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="15dp"
+                android:layout_margin="20dp"
+                android:textColor="@color/corDeTexto"
                 android:fontFamily="sans-serif"
-                android:hint="Tipo de usuário"
-                android:inputType="textEmailAddress"
-                android:textColorHint="@color/corDeTexto" />
+                android:prompt="@string/usuario_prompt"
+                android:entries="@array/tipo_usuario"  />
 
             <EditText
                 android:id="@+id/editTextIndicado"
@@ -128,8 +126,55 @@
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
                 android:hint="Indicado Por"
-                android:inputType="textEmailAddress"
                 android:textColorHint="@color/corDeTexto" />
+
+            <EditText
+                android:id="@+id/editTextCep"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="CEP"
+                android:inputType="phone"
+                android:textColorHint="#CC2A23" />
+
+            <EditText
+                android:id="@+id/editTextCidade"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Cidade"
+                android:textColorHint="#CC2A23" />
+
+            <EditText
+                android:id="@+id/editTextRua"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Rua"
+                android:textColorHint="#CC2A23" />
+
+            <EditText
+                android:id="@+id/editTextNumero"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif"
+                android:hint="Numero/Complemento"
+                android:textColorHint="#CC2A23" />
+
+            <Spinner
+                android:id="@+id/spinnerOffice"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:fontFamily="sans-serif"
+                android:hint="Cargo"
+                android:textColorHint="@color/corDeTexto"
+                android:prompt="@string/cargo_prompt"
+                android:entries="@array/tipo_cargo"  />
 
         </LinearLayout>
     </ScrollView>

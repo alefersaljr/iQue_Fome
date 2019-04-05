@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -21,37 +22,75 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
 
+    //Dados padrão dos usuários
+    private EditText editTextNome, editTextSobreNome, editTextTelefone, editTextCelular, editTextEmail, editTextPassword, editTextIndicado;
+    private Spinner spinnerUser;
     private Button buttonRegisterer;
-    private EditText editTextEmail;
-    private EditText editTextPassword;
     private TextView textViewSignin;
 
-    private ProgressBar progressBar;
+    //Dados de usuário do tipo Restaurante
+    private EditText editTextCep, editTextCidade, editTextRua, editTextNumero;
+    private Spinner spinnerOffice;
 
+
+    //Conexão com banco e progressBar
+    private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        //Inicializando os componentes da tela - User padrão
+        editTextNome = findViewById(R.id.editTextNome);
+        editTextSobreNome = findViewById(R.id.editTextSobreNome);
+        editTextTelefone = findViewById(R.id.editTextTelefone);
+        editTextCelular = findViewById(R.id.editTextCelular);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        editTextIndicado = findViewById(R.id.editTextIndicado);
+        buttonRegisterer = findViewById(R.id.buttonSignUp);
+        textViewSignin = findViewById(R.id.textViewLogin);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        ArrayAdapter adapterUser = ArrayAdapter.createFromResource(this, R.array.tipo_usuario, R.layout.configuracao_combobox);
+        spinnerUser = findViewById(R.id.spinnerUser);
+        spinnerUser.setAdapter(adapterUser);
 
+        //Iniciando os componentes da tela - User Restaurante
+        editTextCep = findViewById(R.id.editTextCep);
+        editTextCidade = findViewById(R.id.editTextCidade);
+        editTextRua = findViewById(R.id.editTextRua);
+        editTextNumero = findViewById(R.id.editTextNumero);
+
+        ArrayAdapter adapterOffice = ArrayAdapter.createFromResource(this, R.array.tipo_cargo, R.layout.configuracao_combobox);
+        spinnerOffice = findViewById(R.id.spinnerOffice);
+        spinnerOffice.setAdapter(adapterOffice);
+
+        //Iniciando compornentes de banco e progressBar
+        progressBar = findViewById(R.id.progressbar);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        buttonRegisterer = (Button) findViewById(R.id.buttonSignUp);
-
-        textViewSignin = (TextView) findViewById(R.id.textViewLogin);
 
         buttonRegisterer.setOnClickListener(this);
         textViewSignin.setOnClickListener(this);
 
-        Spinner spinner = (Spinner) findViewById(R.id.SpinnerTipoUser);
+
+//        addListnerOnButton();
+        addListenerOnSpinnerItemSelection();
+
 
     }
+
+    private void addListenerOnSpinnerItemSelection() {
+        spinnerUser = findViewById(R.id.spinnerUser);
+        spinnerUser.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+    }
+
+//    private void addListnerOnButton() {
+//        spinnerUser = findViewById(R.id.spinnerUser);
+//    }
 
     private void registerUser() {
         String email = editTextEmail.getText().toString().trim();

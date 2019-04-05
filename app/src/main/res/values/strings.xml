@@ -7,4 +7,20 @@
     <string name="usuario">Usuário</string>
     <string name="login">Login</string>
     <string name="ique_fome_Titulo">iQue Fome</string>
+
+    <string name="usuario_prompt">Tipo de usuário</string>
+    <string name="cargo_prompt">Tipo do cargo</string>
+
+    <string-array name="tipo_usuario">
+        <item>Selecione o Tipo de Usuário</item>
+        <item>Cliente</item>
+        <item>Restaurante</item>
+    </string-array>
+
+    <string-array name="tipo_cargo">
+        <item>Selecione o Cargo do Usuário</item>
+        <item>Operador</item>
+        <item>Gerente</item>
+    </string-array>
+
 </resources>
