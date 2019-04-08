@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         findViewById(R.id.textViewSignup).setOnClickListener(this);
+        findViewById(R.id.textViewMissPassword).setOnClickListener(this);
         findViewById(R.id.buttonLogin).setOnClickListener(this);
 
     }
@@ -101,9 +102,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, SignUpActivity.class));
                 break;
 
+            case R.id.textViewMissPassword:
+                finish();
+                startActivity(new Intent(this, EsqueciMinhaSenha.class));
+                break;
+
             case R.id.buttonLogin:
                 userLogin();
                 break;
+
         }
     }
 }

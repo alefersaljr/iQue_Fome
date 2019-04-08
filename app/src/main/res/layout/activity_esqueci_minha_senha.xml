@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:paddingBottom="16dp"
+android:paddingLeft="16dp"
+android:paddingRight="16dp"
+android:paddingTop="16dp"
+tools:context=".EsqueciMinhaSenha"
+android:background="@color/corDeFundo">
+
+    <RelativeLayout
+        android:id="@+id/Logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textTituloiQueFome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:textStyle="italic"
+            android:hint="iQue Fome"
+            android:layout_margin="30dp"
+            android:textColorHint="@color/text_color"
+            android:textAlignment="center"
+            android:textSize="50dp"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/Campos"
+        android:layout_below="@+id/Logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/BotaoCadastrar"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="80dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="center"
+            android:hint="@string/info_email_recuperacao"
+            android:textColorHint="@color/text_color"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/editTextEmailResetPass"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="15dp"
+            android:fontFamily="sans-serif"
+            android:hint="@string/campo_email_cadastro"
+            android:textColorHint="@color/text_color"
+            android:inputType="textEmailAddress"/>
+
+        <Button
+            android:id="@+id/buttonSend"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_bg_rounded_corners"
+            android:text="@string/botao_enviar"
+            android:textAllCaps="false"
+            android:textColor="@color/text_color"  />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/BotaoEnviar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/textViewBackLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/faca_login_aqui"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@color/text_color"
+            android:textSize="13dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

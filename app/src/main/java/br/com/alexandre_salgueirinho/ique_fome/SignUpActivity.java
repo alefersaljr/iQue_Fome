@@ -23,14 +23,15 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
 
     //Dados padrão dos usuários
-    private EditText editTextNome, editTextSobreNome, editTextTelefone, editTextCelular, editTextEmail, editTextPassword, editTextIndicado;
-    private Spinner spinnerUser;
-    private Button buttonRegisterer;
+    private EditText editTextNome, editTextSobreNome, editTextTelefone, editTextCelular, editTextEmail, editTextPassword;
+    public static EditText editTextIndicado;
+    public static Spinner spinnerUser;
+    public static Button buttonRegisterer;
     private TextView textViewSignin;
 
     //Dados de usuário do tipo Restaurante
-    private EditText editTextCep, editTextCidade, editTextRua, editTextNumero;
-    private Spinner spinnerOffice;
+    public static EditText editTextCep, editTextCidade, editTextRua, editTextNumero;
+    public static Spinner spinnerOffice;
 
 
     //Conexão com banco e progressBar
@@ -80,12 +81,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 //        addListnerOnButton();
         addListenerOnSpinnerItemSelection();
 
-
     }
 
     private void addListenerOnSpinnerItemSelection() {
         spinnerUser = findViewById(R.id.spinnerUser);
         spinnerUser.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+
+        spinnerOffice = findViewById(R.id.spinnerOffice);
+        spinnerOffice.setOnItemSelectedListener(new CustomOnItemSelectedListener2());
     }
 
 //    private void addListnerOnButton() {
@@ -93,13 +96,66 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 //    }
 
     private void registerUser() {
+        String nome = editTextNome.getText().toString().trim();
+        String sobrenome = editTextSobreNome.getText().toString().trim();
+        String telefone = editTextTelefone.getText().toString().trim();
+        String celular = editTextCelular.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String tipoUsuario = spinnerUser.getItemAtPosition(spinnerUser.getLastVisiblePosition()).toString().trim();
+
+        String CEP = "", cidade = "", rua = "", complemento = "", cargo = "";
+
+        //Inicializa as variaveis de acordo com o tipoUsuario
+        if(tipoUsuario.equals("Cliente")){
+            String indicado = editTextIndicado.getText().toString().trim();
+        }
+        if(tipoUsuario.equals("Restaurante")){
+            CEP = editTextCep.getText().toString().trim();
+            cidade = editTextCidade.getText().toString().trim();
+            rua = editTextRua.getText().toString().trim();
+            complemento = editTextNumero.getText().toString().trim();
+            cargo = spinnerOffice.getItemAtPosition(spinnerOffice.getLastVisiblePosition()).toString().trim();
+        }
+
+        //Validações de campo
+        if (nome.isEmpty()){
+            editTextNome.setError("É necessário informar um Nome");
+            editTextNome.requestFocus();
+            return;
+        }
+
+        if (sobrenome.isEmpty()){
+            editTextSobreNome.setError("É necessário informar um Sobrenome");
+            editTextSobreNome.requestFocus();
+            return;
+        }
+
+        if (telefone.isEmpty()){
+            editTextTelefone.setError("É necessário informar um Telefone");
+            editTextTelefone.requestFocus();
+            return;
+        }
+        if(!Patterns.PHONE.matcher(telefone).matches()){
+            editTextTelefone.setError("Favor informar um Telefone válido");
+            editTextTelefone.requestFocus();
+            return;
+        }
+
+        if (celular.isEmpty()){
+            editTextCelular.setError("É necessário informar um Celular");
+            editTextCelular.requestFocus();
+            return;
+        }
+        if(!Patterns.PHONE.matcher(celular).matches()){
+            editTextCelular.setError("Favor informar um Celular válido");
+            editTextCelular.requestFocus();
+            return;
+        }
 
         if(email.isEmpty()){
             editTextEmail.setError("É necessário informar um email");
             editTextEmail.requestFocus();
-//            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -112,7 +168,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if(password.isEmpty()){
             editTextPassword.setError("É necessário informar uma senha");
             editTextPassword.requestFocus();
-//            Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -121,6 +176,27 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             editTextPassword.requestFocus();
             return;
         }
+
+        if (tipoUsuario.equals("Restaurante")){
+            if (CEP.isEmpty()){
+                editTextCep.setError("É necessário informar um CEP");
+                editTextCep.requestFocus();
+                return;
+            }
+
+            if (cidade.isEmpty()){
+                editTextCidade.setError("É necessário informar uma Cidade");
+                editTextCidade.requestFocus();
+                return;
+            }
+
+            if (rua.isEmpty()){
+                editTextRua.setError("É necessário informar uma Rua");
+                editTextRua.requestFocus();
+                return;
+            }
+        }
+
 
         //caso a validação seja feita com sucesso, vamos mostrar uma barra de progresso
         progressBar.setVisibility(View.VISIBLE);

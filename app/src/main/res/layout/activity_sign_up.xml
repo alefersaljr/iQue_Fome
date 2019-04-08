@@ -23,9 +23,9 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:fontFamily="sans-serif"
-            android:hint="iQue Fome"
+            android:hint="@string/iQueFome_Titulo"
             android:textAlignment="center"
-            android:textColorHint="#CC2A23"
+            android:textColorHint="@color/text_color"
             android:textSize="50dp"
             android:textStyle="italic" />
 
@@ -57,8 +57,8 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
-                android:hint="Nome"
-                android:textColorHint="@color/corDeTexto" />
+                android:hint="@string/nome"
+                android:textColorHint="@color/text_color" />
 
             <EditText
                 android:id="@+id/editTextSobreNome"
@@ -66,8 +66,8 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
-                android:hint="Sobrenome"
-                android:textColorHint="@color/corDeTexto" />
+                android:hint="@string/sobrenome"
+                android:textColorHint="@color/text_color" />
 
             <EditText
                 android:id="@+id/editTextTelefone"
@@ -75,9 +75,9 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
-                android:hint="Telefone"
+                android:hint="@string/telefone"
                 android:inputType="phone"
-                android:textColorHint="@color/corDeTexto" />
+                android:textColorHint="@color/text_color" />
 
             <EditText
                 android:id="@+id/editTextCelular"
@@ -85,9 +85,9 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
-                android:hint="Celular"
+                android:hint="@string/celular"
                 android:inputType="phone"
-                android:textColorHint="@color/corDeTexto" />
+                android:textColorHint="@color/text_color" />
 
             <EditText
                 android:id="@+id/editTextEmail"
@@ -95,9 +95,9 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:textColorHint="@color/corDeTexto" />
+                android:textColorHint="@color/text_color" />
 
             <EditText
                 android:id="@+id/editTextPassword"
@@ -105,16 +105,16 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
-                android:hint="Senha"
+                android:hint="@string/senha"
                 android:inputType="textPassword"
-                android:textColorHint="#CC2A23" />
+                android:textColorHint="@color/text_color" />
 
             <Spinner
                 android:id="@+id/spinnerUser"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="20dp"
-                android:textColor="@color/corDeTexto"
+                android:textColor="@color/text_color"
                 android:fontFamily="sans-serif"
                 android:prompt="@string/usuario_prompt"
                 android:entries="@array/tipo_usuario"  />
@@ -125,8 +125,9 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
-                android:hint="Indicado Por"
-                android:textColorHint="@color/corDeTexto" />
+                android:hint="@string/indicado_por"
+                android:textColorHint="@color/text_color"
+                android:visibility="gone"  />
 
             <EditText
                 android:id="@+id/editTextCep"
@@ -134,9 +135,10 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
-                android:hint="CEP"
+                android:hint="@string/cep"
                 android:inputType="phone"
-                android:textColorHint="#CC2A23" />
+                android:textColorHint="@color/text_color"
+                android:visibility="gone"  />
 
             <EditText
                 android:id="@+id/editTextCidade"
@@ -144,8 +146,9 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
-                android:hint="Cidade"
-                android:textColorHint="#CC2A23" />
+                android:hint="@string/cidade"
+                android:textColorHint="@color/text_color"
+                android:visibility="gone"  />
 
             <EditText
                 android:id="@+id/editTextRua"
@@ -153,8 +156,9 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
-                android:hint="Rua"
-                android:textColorHint="#CC2A23" />
+                android:hint="@string/rua"
+                android:textColorHint="@color/text_color"
+                android:visibility="gone"  />
 
             <EditText
                 android:id="@+id/editTextNumero"
@@ -162,8 +166,9 @@
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:fontFamily="sans-serif"
-                android:hint="Numero/Complemento"
-                android:textColorHint="#CC2A23" />
+                android:hint="@string/numero_complemento"
+                android:textColorHint="@color/text_color"
+                android:visibility="gone"  />
 
             <Spinner
                 android:id="@+id/spinnerOffice"
@@ -171,10 +176,11 @@
                 android:layout_height="40dp"
                 android:layout_margin="20dp"
                 android:fontFamily="sans-serif"
-                android:hint="Cargo"
-                android:textColorHint="@color/corDeTexto"
+                android:hint="@string/cargo"
+                android:textColorHint="@color/text_color"
                 android:prompt="@string/cargo_prompt"
-                android:entries="@array/tipo_cargo"  />
+                android:entries="@array/tipo_cargo"
+                android:visibility="gone"  />
 
         </LinearLayout>
     </ScrollView>
@@ -196,19 +202,20 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/button_bg_rounded_corners"
-            android:text="Cadastrar"
+            android:text="@string/cadastrar"
             android:textAllCaps="false"
-            android:textColor="#CC2A23" />
+            android:textColor="@color/text_color"
+            android:enabled="false"  />
 
         <TextView
             android:id="@+id/textViewLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="Já possui uma conta? Faça o login aqui"
+            android:text="@string/faca_login_aqui"
             android:textAlignment="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColor="#CC2A23"
+            android:textColor="@color/text_color"
             android:textSize="13dp" />
 
     </LinearLayout>

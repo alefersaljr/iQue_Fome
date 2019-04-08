@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:fontFamily="sans-serif"
-    android:textColor="@color/corDeTexto"
+    android:textColor="@color/text_color"
     android:background="@color/corDeFundo"
-    android:textSize="19dp"/>
+    android:textSize="18dp"/>
