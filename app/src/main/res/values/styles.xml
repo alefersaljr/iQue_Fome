@@ -6,6 +6,9 @@
         <item name="colorPrimary">#ffbe5b</item>
         <item name="colorPrimaryDark">#c88e2b</item>
         <item name="colorAccent">#ffbe5b</item>
+
+        <item name="android:itemBackground">@drawable/default_system_button_2</item>
+        <item name="android:textColor">@color/text_color</item>
     </style>
 
     <style name="MySpinnerLook"

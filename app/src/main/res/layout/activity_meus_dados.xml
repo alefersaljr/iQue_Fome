@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/corDeFundo"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    tools:context=".MeusDados">
+
+    <RelativeLayout
+        android:id="@+id/Logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textTituloiQueFome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="sans-serif"
+            android:hint="@string/iQueFome_Titulo"
+            android:textAlignment="center"
+            android:textColorHint="@color/text_color"
+            android:textSize="50dp"
+            android:textStyle="italic" />
+
+    </RelativeLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/perfil_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/Logo"
+        android:src="@drawable/usericon100"
+        android:paddingTop="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:layout_below="@+id/Logo"
+        android:orientation="vertical"
+        android:paddingTop="15sp" >
+
+
+
+            <TextView
+                android:id="@+id/textViewNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100sp"
+                android:fontFamily="sans-serif"
+                android:text="@string/nome"
+                android:textColor="@color/text_color"
+                android:textSize="18sp" />
+                <!--android:layout_margin="15dp"-->
+
+            <TextView
+                android:id="@+id/textViewSobrenome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="110sp"
+                android:fontFamily="sans-serif"
+                android:text="@string/sobrenome"
+                android:textColor="@color/text_color"
+                android:textSize="18sp" />
+                <!--android:layout_margin="15dp"-->
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/Scrow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/botaoHistoricoPedidos_layout"
+        android:layout_below="@+id/perfil_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/Campos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:id="@+id/textViewTelefone"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".35"
+                    android:layout_marginTop="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Telefone:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewTelefone_Data"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".60"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Número"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:id="@+id/textViewCelular"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".35"
+                    android:layout_marginTop="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Celular:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewCelular_Data"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".60"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Número Celular"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:id="@+id/textViewEmail"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".35"
+                    android:layout_marginTop="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Email:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewEmail_Data"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".60"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="sans-serif"
+                    android:hint="email"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:id="@+id/textViewTipoUsuario"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".35"
+                    android:layout_marginTop="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Tipo de Usuário:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewTipoUsuario_Data"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".60"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="tipo"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:id="@+id/textViewIndicado"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".35"
+                    android:layout_marginTop="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Indicado Por:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textViewIndicado_Data"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".60"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Número Celular"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:id="@+id/textViewCep"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".35"
+                    android:layout_marginTop="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="CEP:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textViewCep_Data"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".60"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Número Celular"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewCidade"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".35"
+                    android:layout_marginTop="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Cidade:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textViewCidade_Data"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".60"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/cidade"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:id="@+id/textViewRua"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".35"
+                    android:layout_marginTop="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Rua:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textViewRua_Data"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".60"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/rua"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:id="@+id/textViewNumero"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".35"
+                    android:layout_marginTop="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="N°/Complemento:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textViewNumero_Data"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".60"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/numero_complemento"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:id="@+id/textViewOffice"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".35"
+                    android:layout_marginTop="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Cargo do Usuário:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textViewOffice_Data"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".60"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/cargo_prompt"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/botaoHistoricoPedidos_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/botaoHistoricoPedidos"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/default_system_button"
+            android:text="@string/botao_meu_historico_pedidos"
+            android:textAllCaps="false"
+            android:textColor="@color/text_color"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

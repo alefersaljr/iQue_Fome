@@ -48,19 +48,6 @@ public class EsqueciMinhaSenha extends AppCompatActivity implements View.OnClick
     }
 
     private void recuperacaoDeSenha() {
-//        actionCodeSettings = {
-//                url: 'https://www.example.com/?email=user@example.com', {
-//                    packageName: 'com.example.android',
-//                        installApp: true,
-//                        minimumVersion: '12'
-//                    },
-//                    handleCodeInApp: true};
-//        firebaseAuth.sendPasswordResetEmail('user@example.com', actionCodeSettings)
-//                .then(function() {
-//                // Password reset email sent.
-//        }).catch(function(error) {
-//            // Error occurred. Inspect error.code.
-//        });
         progressBar.setVisibility(View.VISIBLE);
         firebaseAuth.sendPasswordResetEmail(editTextEmailResetPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

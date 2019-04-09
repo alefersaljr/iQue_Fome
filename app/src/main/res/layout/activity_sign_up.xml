@@ -201,7 +201,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/button_bg_rounded_corners"
+            android:background="@drawable/default_system_button"
             android:text="@string/cadastrar"
             android:textAllCaps="false"
             android:textColor="@color/text_color"

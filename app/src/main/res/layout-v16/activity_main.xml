@@ -68,7 +68,7 @@
             android:text="@string/login"
             android:textAllCaps="false"
             android:textColor="@color/text_color"
-            android:background="@drawable/button_bg_rounded_corners"/>
+            android:background="@drawable/default_system_button"/>
 
         <TextView
             android:id="@+id/textViewMissPassword"

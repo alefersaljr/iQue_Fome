@@ -42,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
     Uri uriProfileImage;
     ProgressBar progressBar;
 
-    String profileImageUrl;
+    String profileImageUrl = "";
 
     FirebaseAuth mAuth;
 
@@ -55,10 +55,10 @@ public class ProfileActivity extends AppCompatActivity {
         // Toolbar toolbar = findViewById(R.id.toolbar);
         //  setSupportActionBar(toolbar);
 
-        editText = (EditText) findViewById(R.id.editTextDisplayName);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
-        textView = (TextView) findViewById(R.id.textViewVerified);
+        editText = findViewById(R.id.editTextDisplayName);
+        imageView = findViewById(R.id.imageView);
+        progressBar = findViewById(R.id.progressbar);
+        textView = findViewById(R.id.textViewVerified);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,10 +133,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
 
-        if (user != null){// && downloadUri != null) {
+        if (user != null && profileImageUrl != null) {
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
                     .setDisplayName(displayName)
-                    //.setPhotoUri(Uri.parse(downloadUri))
+                    .setPhotoUri(Uri.parse(profileImageUrl))
                     .build();
 
             user.updateProfile(profile)
@@ -191,7 +191,7 @@ public class ProfileActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         progressBar.setVisibility(View.GONE);
                         Uri downloadUri = task.getResult();
-
+                        profileImageUrl = String.valueOf(downloadUri);
 
                         Log.i("TEST", String.valueOf(downloadUri));
                     } else {
@@ -218,11 +218,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menuLogout:
-
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 startActivity(new Intent(this, MainActivity.class));
+                break;
 
+            case R.id.menuMeusDados:
+                startActivity(new Intent(this, MeusDados.class));
                 break;
         }
 

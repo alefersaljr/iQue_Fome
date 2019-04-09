@@ -1,38 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ProfileActivity"
-    android:background="@color/corDeFundo">
+    android:background="@color/corDeFundo"
+    android:padding="10dp">
 
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/colorPrimary" />-->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tap on camera to choose profile picture"
-        android:textAlignment="center"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColorHint="#b23333" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/textoCamera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Clique para escolher uma imagem de perfil"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColorHint="@color/text_color" />
+
         <ImageView
             android:id="@+id/imageView"
+            android:layout_below="@+id/textoCamera"
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:layout_centerHorizontal="true"
             android:layout_margin="20dp"
             android:background="@drawable/icon_camera"
             android:scaleType="centerCrop" />
+
+        <EditText
+            android:id="@+id/editTextDisplayName"
+            android:layout_below="@id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Display Name"
+            android:textColor="@color/text_color" />
+
+        <TextView
+            android:id="@+id/emailStatus"
+            android:layout_below="@id/editTextDisplayName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="40dp"
+            android:hint="Email Status: "
+            android:textColorHint="@color/text_color"/>
+
+        <TextView
+            android:id="@+id/textViewVerified"
+            android:layout_below="@id/emailStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Verified"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="@color/text_color" />
+
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -44,33 +70,29 @@
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/editTextDisplayName"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Display Name"
-        android:textColorHint="#b23333" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewVerified"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Verified"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textColorHint="@color/text_color" />
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/default_system_button"
+            android:paddingLeft="55dp"
+            android:paddingRight="55dp"
+            android:hint="Save"
+            android:textColorHint="@color/text_color"
+            android:textAllCaps="false" />
 
-    <Button
-        android:id="@+id/buttonSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/button_bg_rounded_corners"
-        android:paddingLeft="55dp"
-        android:paddingRight="55dp"
-        android:text="Save"
-        android:textColorHint="@color/text_color"
-        android:textAllCaps="false" />
+    </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
