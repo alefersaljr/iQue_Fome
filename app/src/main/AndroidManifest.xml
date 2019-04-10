@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MeusDados"></activity>
+        <activity android:name=".ShareActivity"></activity>
+        <activity android:name=".MeusDados" />
         <activity android:name=".EsqueciMinhaSenha" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SignUpActivity" />

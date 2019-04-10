@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -37,6 +39,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     //Conexão com banco e progressBar
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference dbUsuarios;
 
 
     @Override
@@ -72,6 +76,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //Iniciando compornentes de banco e progressBar
         progressBar = findViewById(R.id.progressbar);
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        dbUsuarios = firebaseDatabase.getReference("USUARIOS");
 
 
         buttonRegisterer.setOnClickListener(this);
@@ -104,11 +110,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String password = editTextPassword.getText().toString().trim();
         String tipoUsuario = spinnerUser.getItemAtPosition(spinnerUser.getLastVisiblePosition()).toString().trim();
 
-        String CEP = "", cidade = "", rua = "", complemento = "", cargo = "";
+        String CEP = "", cidade = "", rua = "", complemento = "", cargo = "", indicado = "";
 
         //Inicializa as variaveis de acordo com o tipoUsuario
         if(tipoUsuario.equals("Cliente")){
-            String indicado = editTextIndicado.getText().toString().trim();
+            indicado = editTextIndicado.getText().toString().trim();
         }
         if(tipoUsuario.equals("Restaurante")){
             CEP = editTextCep.getText().toString().trim();
@@ -117,6 +123,42 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             complemento = editTextNumero.getText().toString().trim();
             cargo = spinnerOffice.getItemAtPosition(spinnerOffice.getLastVisiblePosition()).toString().trim();
         }
+
+        validacaoCampos(nome, sobrenome, telefone, celular, email, password, tipoUsuario, CEP, cidade, rua);
+
+        //caso a validação seja feita com sucesso, vamos mostrar uma barra de progresso
+        progressBar.setVisibility(View.VISIBLE);
+
+        //criação de um ID único para cada usuário
+        String id = dbUsuarios.push().getKey();
+
+        Usuario usuario = new Usuario(id, nome, sobrenome, telefone, celular, email, tipoUsuario, indicado, CEP, cidade, rua, complemento, cargo);
+
+        dbUsuarios.child(id).setValue(usuario);
+
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+           @Override
+           public void onComplete(@NonNull Task<AuthResult> task) {
+               progressBar.setVisibility(View.GONE);
+               if(task.isSuccessful()){
+                   finish();
+                   startActivity(new Intent(SignUpActivity.this, ProfileActivity.class));
+                    //usuário é cadastrado com sucesso e logado, iniciaremos a profile activity aqui
+                    Toast.makeText(getApplicationContext(), "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
+                }else {
+                   if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                       Toast.makeText(getApplicationContext(), "Este email já está cadastrado", Toast.LENGTH_SHORT).show();
+                   } else {
+                       Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                   }
+               }
+           }
+       });
+    }
+
+    private void validacaoCampos(String nome, String sobrenome, String telefone, String celular, String email, String password, String tipoUsuario, String CEP, String cidade, String rua) {
+
 
         //Validações de campo
         if (nome.isEmpty()){
@@ -196,30 +238,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 return;
             }
         }
-
-
-        //caso a validação seja feita com sucesso, vamos mostrar uma barra de progresso
-        progressBar.setVisibility(View.VISIBLE);
-
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-           @Override
-           public void onComplete(@NonNull Task<AuthResult> task) {
-               progressBar.setVisibility(View.GONE);
-               if(task.isSuccessful()){
-                   finish();
-                   startActivity(new Intent(SignUpActivity.this, ProfileActivity.class));
-                    //usuário é cadastrado com sucesso e logado, iniciaremos a profile activity aqui
-                    Toast.makeText(getApplicationContext(), "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
-                }else {
-                   if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                       Toast.makeText(getApplicationContext(), "Este email já está cadastrado", Toast.LENGTH_SHORT).show();
-                   } else {
-                       Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                   }
-               }
-           }
-       });
     }
+
+//    private void postUser(String nome, String email) {
+//        Usuario post = new Usuario(nome, email);
+//
+//        databaseReference.push()
+//                .setValue(post);
+//    }
 
     @Override
     public void onClick(View view) {

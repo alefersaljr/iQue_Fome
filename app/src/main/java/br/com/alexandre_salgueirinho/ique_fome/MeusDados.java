@@ -1,7 +1,12 @@
 package br.com.alexandre_salgueirinho.ique_fome;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,8 +16,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MeusDados extends AppCompatActivity {
+
+    //region Inicialização de componentes da tela e banco de dados
 
     private TextView textViewNome, textViewSobrenome, textViewTelefone, textViewCelular;
     private TextView textViewTelefone_Data, textViewCelular_Data;
@@ -26,13 +38,19 @@ public class MeusDados extends AppCompatActivity {
     private Button botaoHistoricoPedidos;
 
     FirebaseAuth mAuth;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference dbUsuarios;
+
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meus_dados);
 
-        //Inicializando os campos da tela
+        //region Atribuição dos componentes da tela e banco de dados
+
+        //Inicializando atributos da tela
         textViewNome = findViewById(R.id.textViewNome);
         textViewSobrenome = findViewById(R.id.textViewSobrenome);
         textViewTelefone = findViewById(R.id.textViewTelefone);
@@ -55,14 +73,17 @@ public class MeusDados extends AppCompatActivity {
         textViewNumero_Data = findViewById(R.id.textViewNumero_Data);
         textViewOffice = findViewById(R.id.textViewOffice);
         textViewOffice_Data = findViewById(R.id.textViewOffice_Data);
-
         perfil_image = findViewById(R.id.perfil_image);
-
-
-        mAuth = FirebaseAuth.getInstance();
-
-
         botaoHistoricoPedidos = findViewById(R.id.botaoHistoricoPedidos);
+
+        //Inicializando atributos do banco de dados
+        mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        dbUsuarios = firebaseDatabase.getReference("USUARIOS");
+
+        //endregion
+
+        loadUserInformation();
 
         botaoHistoricoPedidos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,12 +91,76 @@ public class MeusDados extends AppCompatActivity {
                 Toast.makeText(MeusDados.this, "Em atualização. Por favor, aguarde.", Toast.LENGTH_SHORT).show();
             }
         });
-
-        loadUserInformation();
     }
 
     private void loadUserInformation() {
+        dbUsuarios.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot usuarioSnapshot : dataSnapshot.getChildren()){
+                    Usuario usuario = usuarioSnapshot.getValue(Usuario.class);
+
+                    //Atribuir valores
+                    textViewSobrenome.setText(usuario.getSobrenome() + ",");
+                    textViewNome.setText(usuario.getNome());
+                    textViewTelefone_Data.setText(usuario.getTelefone());
+                    textViewCelular_Data.setText(usuario.getCelular());
+                    textViewEmail_Data.setText(usuario.getEmail());
+                    textViewTipoUsuario_Data.setText(usuario.getTipoUsuario());
+
+                    if (usuario.getTipoUsuario().equals("Cliente")){
+                        //tornar visivel
+                        textViewIndicado.setVisibility(View.VISIBLE);
+                        textViewIndicado_Data.setVisibility(View.VISIBLE);
+
+                        //tornar não visivel
+                        textViewCep.setVisibility(View.GONE);
+                        textViewCep_Data.setVisibility(View.GONE);
+                        textViewCidade.setVisibility(View.GONE);
+                        textViewCidade_Data.setVisibility(View.GONE);
+                        textViewRua.setVisibility(View.GONE);
+                        textViewRua_Data.setVisibility(View.GONE);
+                        textViewNumero.setVisibility(View.GONE);
+                        textViewNumero_Data.setVisibility(View.GONE);
+                        textViewOffice.setVisibility(View.GONE);
+                        textViewOffice_Data.setVisibility(View.GONE);
+
+                        //Atribuir valores
+                        textViewIndicado_Data.setText(usuario.getIndicado());
+                    }
+                    else if (usuario.getTipoUsuario().equals("Restaurante")){
+                        //tornar visivel
+                        textViewCep.setVisibility(View.VISIBLE);
+                        textViewCep_Data.setVisibility(View.VISIBLE);
+                        textViewCidade.setVisibility(View.VISIBLE);
+                        textViewCidade_Data.setVisibility(View.VISIBLE);
+                        textViewRua.setVisibility(View.VISIBLE);
+                        textViewRua_Data.setVisibility(View.VISIBLE);
+                        textViewNumero.setVisibility(View.VISIBLE);
+                        textViewNumero_Data.setVisibility(View.VISIBLE);
+                        textViewOffice.setVisibility(View.VISIBLE);
+                        textViewOffice_Data.setVisibility(View.VISIBLE);
+
+                        //tornar não visivel
+                        textViewIndicado.setVisibility(View.GONE);
+                        textViewIndicado_Data.setVisibility(View.GONE);
+
+                        //Atribuir valores
+                        textViewCep_Data.setText(usuario.getCEP());
+                        textViewCidade_Data.setText(usuario.getCidade());
+                        textViewRua_Data.setText(usuario.getRua());
+                        textViewNumero_Data.setText(usuario.getComplemento());
+                        textViewOffice_Data.setText(usuario.getCargo());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
         final FirebaseUser user = mAuth.getCurrentUser();
+//        Usuario user = new Usuario();
 
         if (user != null) {
             if (user.getPhotoUrl() != null) {
@@ -83,10 +168,36 @@ public class MeusDados extends AppCompatActivity {
                         .load(user.getPhotoUrl().toString())
                         .into(perfil_image);
             }
-
-            if(user.getEmail() != null){
-                textViewEmail_Data.setText(user.getEmail());
-            }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menuLogout:
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(this, MainActivity.class));
+                break;
+
+            case R.id.menuMeusDados:
+                break;
+
+            case R.id.menuCompartilhar:
+                Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return true;
     }
 }

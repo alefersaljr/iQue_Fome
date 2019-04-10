@@ -226,6 +226,10 @@ public class ProfileActivity extends AppCompatActivity {
             case R.id.menuMeusDados:
                 startActivity(new Intent(this, MeusDados.class));
                 break;
+
+            case R.id.menuCompartilhar:
+                Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                break;
         }
 
         return true;

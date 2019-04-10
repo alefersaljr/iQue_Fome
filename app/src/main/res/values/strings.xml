@@ -27,6 +27,7 @@
     <string name="info_email_recuperacao">Para recuperar sua senha, favor informar o e-mail de cadastro</string>
     <string name="campo_email_cadastro">E-mail de cadastro</string>
     <string name="botao_meu_historico_pedidos">Meu histórico de pedidos</string>
+    <string name="botao_enviar">Enviar</string>
 
     <string-array name="tipo_usuario">
         <item>Selecione o Tipo de Usuário</item>
