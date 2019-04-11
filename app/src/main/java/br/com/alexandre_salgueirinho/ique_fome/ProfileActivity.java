@@ -25,6 +25,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -45,12 +50,17 @@ public class ProfileActivity extends AppCompatActivity {
     String profileImageUrl = "";
 
     FirebaseAuth mAuth;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference dbUsuarios;
+
+    String tipoUsuario = "";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        mAuth = FirebaseAuth.getInstance();
 
         // Toolbar toolbar = findViewById(R.id.toolbar);
         //  setSupportActionBar(toolbar);
@@ -59,6 +69,11 @@ public class ProfileActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         progressBar = findViewById(R.id.progressbar);
         textView = findViewById(R.id.textViewVerified);
+
+        //Inicializando atributos do banco de dados
+        mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        dbUsuarios = firebaseDatabase.getReference("USUARIOS");
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +88,19 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveUserInformation();
+            }
+        });
+
+        dbUsuarios.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot usuarioSnapshot : dataSnapshot.getChildren()) {
+                    Usuario usuario = usuarioSnapshot.getValue(Usuario.class);
+                    tipoUsuario = usuario.getTipoUsuario();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }
@@ -204,42 +232,98 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.menuLogout:
-                FirebaseAuth.getInstance().signOut();
-                finish();
-                startActivity(new Intent(this, MainActivity.class));
-                break;
-
-            case R.id.menuMeusDados:
-                startActivity(new Intent(this, MeusDados.class));
-                break;
-
-            case R.id.menuCompartilhar:
-                Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        return true;
-    }
-
     private void showImageChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE);
     }
+
+    //region Criação do menu
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+//        if (tipoUsuario.contains("Cliente")) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu, menu);
+//        }else if(tipoUsuario.equals("Restaurante")){
+//            MenuInflater inflater = getMenuInflater();
+//            inflater.inflate(R.menu.menu_restaurante, menu);
+//        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        final String[] tipoUsuario = new String[1];
+//
+//        dbUsuarios.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot usuarioSnapshot : dataSnapshot.getChildren()) {
+//                    Usuario usuario = usuarioSnapshot.getValue(Usuario.class);
+//                    tipoUsuario[0] = usuario.getTipoUsuario();
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//        });
+//
+//        if (tipoUsuario[0].equals("Cliente")) {
+            switch (item.getItemId()) {
+                case R.id.menuCompartilhar:
+                    startActivity(new Intent(getApplicationContext(), ShareActivity.class));
+                    break;
+
+                case R.id.menuLogout:
+                    FirebaseAuth.getInstance().signOut();
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    break;
+
+                case R.id.menuMeusDados:
+                    startActivity(new Intent(getApplicationContext(), MeusDados.class));
+                    break;
+
+                case R.id.menuCarrinho:
+                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case R.id.menuHistorico:
+                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case R.id.menuTelaInicial:
+                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+//
+//        }else if(tipoUsuario[0].equals("Restaurante")){
+//            switch (item.getItemId()) {
+//                case R.id.menuLogout_Restaurante:
+//                    FirebaseAuth.getInstance().signOut();
+//                    finish();
+//                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                    break;
+//
+//                case R.id.menuTelaInicial_Restaurante:
+//                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+//                    break;
+//
+//                case R.id.menuCompartilhar_Restaurante:
+//                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+//                    break;
+//
+//                case R.id.menuMeusDados_Restaurante:
+//                    break;
+//            }
+//        }
+        return true;
+    }
+
+    //endregion
 
 }

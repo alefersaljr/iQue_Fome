@@ -2,12 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menuTelaInicial"
+        android:title="Tela Inicial" />
+
+    <item
+        android:id="@+id/menuCarrinho"
+        android:title="Meu Carrinho" />
+
+    <item
         android:id="@+id/menuCompartilhar"
-        android:title="Share Restaurant" />
+        android:title="Compartilhar" />
 
     <item
         android:id="@+id/menuMeusDados"
         android:title="Meus Dados"/>
+
+    <item
+        android:id="@+id/menuHistorico"
+        android:title="Histórico de Pedidos" />
 
     <item
         android:id="@+id/menuLogout"

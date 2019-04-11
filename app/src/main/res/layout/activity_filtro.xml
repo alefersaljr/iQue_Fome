@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/corDeFundo"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    tools:context=".FiltroActivity">
+
+    <RelativeLayout
+        android:id="@+id/Logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textTituloiQueFome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="sans-serif"
+            android:hint="@string/iQueFome_Titulo"
+            android:textAlignment="center"
+            android:textColorHint="@color/text_color"
+            android:textSize="50dp"
+            android:textStyle="italic" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/Scrow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Logo"
+        android:paddingTop="40sp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/Campos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewFiltro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Filtros"
+                android:textAlignment="center"
+                android:textSize="25sp"
+                android:textColorHint="@color/text_color"/>
+
+            <TextView
+                android:id="@+id/textViewTipoComida"
+                android:paddingTop="40sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp"
+                android:hint="Tipo de Comida"
+                android:textSize="18sp"
+                android:textColorHint="@color/text_color"/>
+
+            <Spinner
+                android:id="@+id/spinnerTipoComida"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="15sp"
+                android:textColor="@color/text_color"
+                android:fontFamily="sans-serif"
+                android:prompt="@string/tipoComida_prompt"
+                android:entries="@array/tipo_comida" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp">
+
+                <TextView
+                    android:id="@+id/textViewValorMinimo"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".28"
+                    android:layout_marginTop="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Valor Mínimo:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/textViewValorMinimo_Data"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".45"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Mínimo"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp">
+
+                <TextView
+                    android:id="@+id/textViewValorMaximo"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".28"
+                    android:layout_marginTop="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Valor Máximo:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/textViewValorMaximo_Data"
+                    android:layout_width="0sp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".45"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Máximo"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/botaoOK_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/botaoOK"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/default_system_button"
+            android:text="OK!"
+            android:textAllCaps="false"
+            android:textColor="@color/text_color"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,33 +1,39 @@
 <resources>
     <string name="app_name">iQue_Fome</string>
-    <string name="esqueceuSenha">Esqueceu sua senha? Clique aqui.</string>
-    <string name="seCadastre">Não possui uma conta ainda? Cadastre-se aqui.</string>
-    <string name="fontFamily">sans-serif</string>
-    <string name="usuario">Usuário</string>
-    <string name="login">Login</string>
-    <string name="ique_fome_Titulo">iQue Fome</string>
-    <string name="usuario_prompt">Tipo de usuário</string>
+    <string name="botao_enviar">Enviar</string>
+    <string name="botao_meu_historico_pedidos">Meu histórico de pedidos</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="campo_email_cadastro">E-mail de cadastro</string>
+    <string name="cargo">Cargo</string>
     <string name="cargo_prompt">Tipo do cargo</string>
+    <string name="cidade">Cidade</string>
+    <string name="celular">Celular</string>
+    <string name="cep">CEP</string>
+    <string name="email">Email</string>
+    <string name="esqueceuSenha">Esqueceu sua senha? Clique aqui.</string>
+    <string name="faca_login_aqui">Já possui uma conta? Faça o login aqui</string>
+    <string name="fontFamily">sans-serif</string>
+    <string name="indicado_por">Indicado Por</string>
+    <string name="info_email_recuperacao">Para recuperar sua senha, favor informar o e-mail de cadastro</string>
     <string name="iQueFome_Titulo">iQue Fome</string>
+    <string name="ique_fome_Titulo">iQue Fome</string>
+    <string name="login">Login</string>
     <string name="nome">Nome</string>
+    <string name="numero_complemento">Numero/Complemento</string>
+    <string name="rua">Rua</string>
+    <string name="seCadastre">Não possui uma conta ainda? Cadastre-se aqui.</string>
+    <string name="senha">Senha</string>
     <string name="sobrenome">Sobrenome</string>
     <string name="telefone">Telefone</string>
-    <string name="celular">Celular</string>
-    <string name="email">Email</string>
-    <string name="senha">Senha</string>
-    <string name="indicado_por">Indicado Por</string>
-    <string name="cep">CEP</string>
-    <string name="cidade">Cidade</string>
-    <string name="rua">Rua</string>
-    <string name="numero_complemento">Numero/Complemento</string>
-    <string name="cargo">Cargo</string>
-    <string name="cadastrar">Cadastrar</string>
-    <string name="faca_login_aqui">Já possui uma conta? Faça o login aqui</string>
-    <string name="botao_enviar">Enviar</string>
-    <string name="info_email_recuperacao">Para recuperar sua senha, favor informar o e-mail de cadastro</string>
-    <string name="campo_email_cadastro">E-mail de cadastro</string>
-    <string name="botao_meu_historico_pedidos">Meu histórico de pedidos</string>
-    <string name="botao_enviar">Enviar</string>
+    <string name="tipoComida_prompt">Tipo de comida</string>
+    <string name="usuario">Usuário</string>
+    <string name="usuario_prompt">Tipo de usuário</string>
+
+    <string-array name="tipo_cargo">
+        <item>Selecione o Cargo do Usuário</item>
+        <item>Operador</item>
+        <item>Gerente</item>
+    </string-array>
 
     <string-array name="tipo_usuario">
         <item>Selecione o Tipo de Usuário</item>
@@ -35,10 +41,16 @@
         <item>Restaurante</item>
     </string-array>
 
-    <string-array name="tipo_cargo">
-        <item>Selecione o Cargo do Usuário</item>
-        <item>Operador</item>
-        <item>Gerente</item>
+    <string-array name="tipo_comida">
+        <item>Selecione o Tipo de Comida</item>
+        <item>Caseira</item>
+        <item>Pizza</item>
+        <item>Hambúrger</item>
+        <item>Pastel</item>
+        <item>Sushi</item>
+        <item>Pastel</item>
+        <item>Doce</item>
+        <item>Sorvete</item>
     </string-array>
 
 </resources>

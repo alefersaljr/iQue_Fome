@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuTelaInicial_Restaurante"
+        android:title="Tela Inicial" />
+
+    <item
+        android:id="@+id/menuCompartilhar_Restaurante"
+        android:title="Compartilhar" />
+
+    <item
+        android:id="@+id/menuMeusDados_Restaurante"
+        android:title="Meus Dados"/>
+
+    <item
+        android:id="@+id/menuLogout_Restaurante"
+        android:title="Logout" />
+
+</menu>
