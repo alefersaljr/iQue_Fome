@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
 
+    //region Instancia dos elementos da tela
+
     //Dados padrão dos usuários
     private EditText editTextNome, editTextSobreNome, editTextTelefone, editTextCelular, editTextEmail, editTextPassword;
     public static EditText editTextIndicado;
@@ -42,11 +44,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     FirebaseDatabase firebaseDatabase;
     DatabaseReference dbUsuarios;
 
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        //region Inicialização dos componentes da tela e banco
 
         //Inicializando os componentes da tela - User padrão
         editTextNome = findViewById(R.id.editTextNome);
@@ -79,14 +84,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         firebaseDatabase = FirebaseDatabase.getInstance();
         dbUsuarios = firebaseDatabase.getReference("USUARIOS");
 
+        //endregion
 
         buttonRegisterer.setOnClickListener(this);
         textViewSignin.setOnClickListener(this);
 
-
-//        addListnerOnButton();
         addListenerOnSpinnerItemSelection();
-
     }
 
     private void addListenerOnSpinnerItemSelection() {
@@ -96,10 +99,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         spinnerOffice = findViewById(R.id.spinnerOffice);
         spinnerOffice.setOnItemSelectedListener(new CustomOnItemSelectedListener2());
     }
-
-//    private void addListnerOnButton() {
-//        spinnerUser = findViewById(R.id.spinnerUser);
-//    }
 
     private void registerUser() {
         String nome = editTextNome.getText().toString().trim();
@@ -124,41 +123,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             cargo = spinnerOffice.getItemAtPosition(spinnerOffice.getLastVisiblePosition()).toString().trim();
         }
 
-        validacaoCampos(nome, sobrenome, telefone, celular, email, password, tipoUsuario, CEP, cidade, rua);
-
-        //caso a validação seja feita com sucesso, vamos mostrar uma barra de progresso
-        progressBar.setVisibility(View.VISIBLE);
-
-        //criação de um ID único para cada usuário
-        String id = dbUsuarios.push().getKey();
-
-        Usuario usuario = new Usuario(id, nome, sobrenome, telefone, celular, email, tipoUsuario, indicado, CEP, cidade, rua, complemento, cargo);
-
-        dbUsuarios.child(id).setValue(usuario);
-
-
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-           @Override
-           public void onComplete(@NonNull Task<AuthResult> task) {
-               progressBar.setVisibility(View.GONE);
-               if(task.isSuccessful()){
-                   finish();
-                   startActivity(new Intent(SignUpActivity.this, ProfileActivity.class));
-                    //usuário é cadastrado com sucesso e logado, iniciaremos a profile activity aqui
-                    Toast.makeText(getApplicationContext(), "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
-                }else {
-                   if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                       Toast.makeText(getApplicationContext(), "Este email já está cadastrado", Toast.LENGTH_SHORT).show();
-                   } else {
-                       Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                   }
-               }
-           }
-       });
-    }
-
-    private void validacaoCampos(String nome, String sobrenome, String telefone, String celular, String email, String password, String tipoUsuario, String CEP, String cidade, String rua) {
-
+        //region Validação de campos
 
         //Validações de campo
         if (nome.isEmpty()){
@@ -238,14 +203,39 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 return;
             }
         }
-    }
 
-//    private void postUser(String nome, String email) {
-//        Usuario post = new Usuario(nome, email);
-//
-//        databaseReference.push()
-//                .setValue(post);
-//    }
+        //endregion
+
+        //caso a validação seja feita com sucesso, vamos mostrar uma barra de progresso
+        progressBar.setVisibility(View.VISIBLE);
+
+        //criação de um ID único para cada usuário
+        String id = dbUsuarios.push().getKey();
+
+        Usuario usuario = new Usuario(id, nome, sobrenome, telefone, celular, email, tipoUsuario, indicado, CEP, cidade, rua, complemento, cargo);
+
+        dbUsuarios.child(id).setValue(usuario);
+
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+           @Override
+           public void onComplete(@NonNull Task<AuthResult> task) {
+               progressBar.setVisibility(View.GONE);
+               if(task.isSuccessful()){
+                   finish();
+                   startActivity(new Intent(SignUpActivity.this, ProfileActivity.class));
+                    //usuário é cadastrado com sucesso e logado, iniciaremos a profile activity aqui
+                    Toast.makeText(getApplicationContext(), "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
+                }else {
+                   if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                       Toast.makeText(getApplicationContext(), "Este email já está cadastrado", Toast.LENGTH_SHORT).show();
+                   } else {
+                       Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                   }
+               }
+           }
+       });
+    }
 
     @Override
     public void onClick(View view) {
