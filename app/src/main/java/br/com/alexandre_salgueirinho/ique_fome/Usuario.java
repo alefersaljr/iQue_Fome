@@ -6,7 +6,7 @@ public class Usuario {
     public Usuario(){
     }
 
-    public Usuario(String usuarioId, String nome, String sobrenome, String telefone, String celular, String email, String tipoUsuario, String indicado, String CEP, String cidade, String rua, String cargo, String complemento) {
+    public Usuario(String usuarioId, String nome, String sobrenome, String telefone, String celular, String email, String tipoUsuario, String indicado, String CEP, String cidade, String rua, String complemento, String cargo) {
         this.usuarioId = usuarioId;
         this.nome = nome;
         this.sobrenome = sobrenome;

@@ -32,10 +32,9 @@ public class MeusDados extends AppCompatActivity {
     private TextView textViewEmail_Data, textViewTipoUsuario_Data, textViewIndicado_Data, textViewCep_Data;
     private TextView textViewCidade, textViewRua, textViewNumero, textViewOffice;
     private TextView textViewCidade_Data, textViewRua_Data, textViewNumero_Data, textViewOffice_Data;
-
     private ImageView perfil_image;
-
     private Button botaoHistoricoPedidos;
+    public static String userID, tipoUsuario;
 
     FirebaseAuth mAuth;
     FirebaseDatabase firebaseDatabase;
@@ -81,6 +80,10 @@ public class MeusDados extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         dbUsuarios = firebaseDatabase.getReference("USUARIOS");
 
+        Intent i = getIntent();
+        tipoUsuario = i.getStringExtra("tipoUsuario");
+        userID = mAuth.getCurrentUser().getUid();
+
         //endregion
 
         loadUserInformation();
@@ -93,63 +96,69 @@ public class MeusDados extends AppCompatActivity {
         });
     }
 
-    private void loadUserInformation() {
+    public void loadUserInformation() {
         dbUsuarios.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot usuarioSnapshot : dataSnapshot.getChildren()) {
                     Usuario usuario = usuarioSnapshot.getValue(Usuario.class);
 
-                    //Atribuir valores
-                    textViewSobrenome.setText(usuario.getSobrenome() + ",");
-                    textViewNome.setText(usuario.getNome());
-                    textViewTelefone_Data.setText(usuario.getTelefone());
-                    textViewCelular_Data.setText(usuario.getCelular());
-                    textViewEmail_Data.setText(usuario.getEmail());
-                    textViewTipoUsuario_Data.setText(usuario.getTipoUsuario());
-
-                    if (usuario.getTipoUsuario().equals("Cliente")) {
-                        //tornar visivel
-                        textViewIndicado.setVisibility(View.VISIBLE);
-                        textViewIndicado_Data.setVisibility(View.VISIBLE);
-
-                        //tornar não visivel
-                        textViewCep.setVisibility(View.GONE);
-                        textViewCep_Data.setVisibility(View.GONE);
-                        textViewCidade.setVisibility(View.GONE);
-                        textViewCidade_Data.setVisibility(View.GONE);
-                        textViewRua.setVisibility(View.GONE);
-                        textViewRua_Data.setVisibility(View.GONE);
-                        textViewNumero.setVisibility(View.GONE);
-                        textViewNumero_Data.setVisibility(View.GONE);
-                        textViewOffice.setVisibility(View.GONE);
-                        textViewOffice_Data.setVisibility(View.GONE);
+                    if (usuario.getUsuarioId().equals(userID)) {
 
                         //Atribuir valores
-                        textViewIndicado_Data.setText(usuario.getIndicado());
-                    } else if (usuario.getTipoUsuario().equals("Restaurante")) {
-                        //tornar visivel
-                        textViewCep.setVisibility(View.VISIBLE);
-                        textViewCep_Data.setVisibility(View.VISIBLE);
-                        textViewCidade.setVisibility(View.VISIBLE);
-                        textViewCidade_Data.setVisibility(View.VISIBLE);
-                        textViewRua.setVisibility(View.VISIBLE);
-                        textViewRua_Data.setVisibility(View.VISIBLE);
-                        textViewNumero.setVisibility(View.VISIBLE);
-                        textViewNumero_Data.setVisibility(View.VISIBLE);
-                        textViewOffice.setVisibility(View.VISIBLE);
-                        textViewOffice_Data.setVisibility(View.VISIBLE);
+                        textViewSobrenome.setText(usuario.getSobrenome() + ",");
+                        textViewNome.setText(usuario.getNome());
+                        textViewTelefone_Data.setText(usuario.getTelefone());
+                        textViewCelular_Data.setText(usuario.getCelular());
+                        textViewEmail_Data.setText(usuario.getEmail());
+                        textViewTipoUsuario_Data.setText(usuario.getTipoUsuario());
 
-                        //tornar não visivel
-                        textViewIndicado.setVisibility(View.GONE);
-                        textViewIndicado_Data.setVisibility(View.GONE);
+                        if (usuario.getTipoUsuario().equals("Cliente")) {
 
-                        //Atribuir valores
-                        textViewCep_Data.setText(usuario.getCEP());
-                        textViewCidade_Data.setText(usuario.getCidade());
-                        textViewRua_Data.setText(usuario.getRua());
-                        textViewNumero_Data.setText(usuario.getComplemento());
-                        textViewOffice_Data.setText(usuario.getCargo());
+                            //tornar visivel
+                            textViewIndicado.setVisibility(View.VISIBLE);
+                            textViewIndicado_Data.setVisibility(View.VISIBLE);
+
+                            //tornar não visivel
+                            textViewCep.setVisibility(View.GONE);
+                            textViewCep_Data.setVisibility(View.GONE);
+                            textViewCidade.setVisibility(View.GONE);
+                            textViewCidade_Data.setVisibility(View.GONE);
+                            textViewRua.setVisibility(View.GONE);
+                            textViewRua_Data.setVisibility(View.GONE);
+                            textViewNumero.setVisibility(View.GONE);
+                            textViewNumero_Data.setVisibility(View.GONE);
+                            textViewOffice.setVisibility(View.GONE);
+                            textViewOffice_Data.setVisibility(View.GONE);
+
+                            //Atribuir valores
+                            textViewIndicado_Data.setText(usuario.getIndicado());
+
+                        } else if (usuario.getTipoUsuario().equals("Restaurante")) {
+
+                            //tornar visivel
+                            textViewCep.setVisibility(View.VISIBLE);
+                            textViewCep_Data.setVisibility(View.VISIBLE);
+                            textViewCidade.setVisibility(View.VISIBLE);
+                            textViewCidade_Data.setVisibility(View.VISIBLE);
+                            textViewRua.setVisibility(View.VISIBLE);
+                            textViewRua_Data.setVisibility(View.VISIBLE);
+                            textViewNumero.setVisibility(View.VISIBLE);
+                            textViewNumero_Data.setVisibility(View.VISIBLE);
+                            textViewOffice.setVisibility(View.VISIBLE);
+                            textViewOffice_Data.setVisibility(View.VISIBLE);
+
+                            //tornar não visivel
+                            textViewIndicado.setVisibility(View.GONE);
+                            textViewIndicado_Data.setVisibility(View.GONE);
+
+                            //Atribuir valores
+                            textViewCep_Data.setText(usuario.getCEP());
+                            textViewCidade_Data.setText(usuario.getCidade());
+                            textViewRua_Data.setText(usuario.getRua());
+                            textViewNumero_Data.setText(usuario.getComplemento());
+                            textViewOffice_Data.setText(usuario.getCargo());
+                        }
                     }
                 }
             }
@@ -160,7 +169,6 @@ public class MeusDados extends AppCompatActivity {
         });
 
         final FirebaseUser user = mAuth.getCurrentUser();
-//        Usuario user = new Usuario();
 
         if (user != null) {
             if (user.getPhotoUrl() != null) {
@@ -176,54 +184,27 @@ public class MeusDados extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-//        //resgate do tipo de usuário
-//        final String[] tipoUsuario = new String[1];
-//
-//        dbUsuarios.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot usuarioSnapshot : dataSnapshot.getChildren()) {
-//                    Usuario usuario = usuarioSnapshot.getValue(Usuario.class);
-//                    tipoUsuario[0] = usuario.getTipoUsuario();
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//            }
-//        });
-//
-//        if (tipoUsuario[0].equals("Cliente")) {
+        Intent i = getIntent();
+        tipoUsuario = i.getStringExtra("tipoUsuario");
+
+        if (tipoUsuario.equals("Cliente")) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu, menu);
-//        }else if(tipoUsuario[0].equals("Restaurante")){
-//            MenuInflater inflater = getMenuInflater();
-//            inflater.inflate(R.menu.menu_restaurante, menu);
-//        }
+        } else if (tipoUsuario.equals("Restaurante")) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_restaurante, menu);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-//        final String[] tipoUsuario = new String[1];
-//
-//        dbUsuarios.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot usuarioSnapshot : dataSnapshot.getChildren()) {
-//                    Usuario usuario = usuarioSnapshot.getValue(Usuario.class);
-//                    tipoUsuario[0] = usuario.getTipoUsuario();
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//            }
-//        });
-//
-//        if (tipoUsuario[0].equals("Cliente")) {
+        if (tipoUsuario.equals("Cliente")) {
             switch (item.getItemId()) {
                 case R.id.menuCompartilhar:
-                    startActivity(new Intent(getApplicationContext(), ShareActivity.class));
+                    Intent intentCompartilhar = new Intent(getApplicationContext(), ShareActivity.class);
+                    intentCompartilhar.putExtra("tipoUsuario", tipoUsuario);
+                    startActivity(intentCompartilhar);
                     break;
 
                 case R.id.menuLogout:
@@ -236,38 +217,51 @@ public class MeusDados extends AppCompatActivity {
                     break;
 
                 case R.id.menuCarrinho:
+                    Intent intentCarrinho = new Intent(getApplicationContext(), CarrinhoActivity.class);
+                    intentCarrinho.putExtra("tipoUsuario", tipoUsuario);
                     Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
                     break;
 
                 case R.id.menuHistorico:
+                    Intent intentHistorico = new Intent(getApplicationContext(), HistoricoListaActivity.class);
+                    intentHistorico.putExtra("tipoUsuario", tipoUsuario);
                     Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
                     break;
 
                 case R.id.menuTelaInicial:
+                    Intent intentTelaInicial = new Intent(getApplicationContext(), ProfileActivity.class);
+                    intentTelaInicial.putExtra("tipoUsuario", tipoUsuario);
                     Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
                     break;
             }
 
-//        }else if(tipoUsuario[0].equals("Restaurante")){
-//            switch (item.getItemId()) {
-//                case R.id.menuLogout_Restaurante:
-//                    FirebaseAuth.getInstance().signOut();
-//                    finish();
-//                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                    break;
-//
-//                case R.id.menuTelaInicial_Restaurante:
-//                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
-//                    break;
-//
-//                case R.id.menuCompartilhar_Restaurante:
-//                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
-//                    break;
-//
-//                case R.id.menuMeusDados_Restaurante:
-//                    break;
-//            }
-//        }
+        } else if (tipoUsuario.equals("Restaurante")) {
+            switch (item.getItemId()) {
+                case R.id.menuLogout_Restaurante:
+                    FirebaseAuth.getInstance().signOut();
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    break;
+
+                case R.id.menuTelaInicial_Restaurante:
+                    Intent intentTelaInicial_Restaurante = new Intent(getApplicationContext(), RestauranteTelaInicialActivity.class);
+                    intentTelaInicial_Restaurante.putExtra("tipoUsuario", tipoUsuario);
+                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case R.id.menuCompartilhar_Restaurante:
+                    Intent intentCompartilhar_Restaurante = new Intent(getApplicationContext(), RestauranteTelaInicialActivity.class);
+                    intentCompartilhar_Restaurante.putExtra("tipoUsuario", tipoUsuario);
+                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case R.id.menuMeusDados_Restaurante:
+                    Intent intentMeusDados_Restaurante = new Intent(getApplicationContext(), RestauranteTelaInicialActivity.class);
+                    intentMeusDados_Restaurante.putExtra("tipoUsuario", tipoUsuario);
+                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
         return true;
     }
 

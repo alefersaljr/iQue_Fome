@@ -30,6 +30,7 @@ public class ShareActivity extends AppCompatActivity {
     private EditText editTextNomeRestaurante, editTextNumeroEnvio;
     private Button botaoCompartilhar;
     private ImageView perfil_image;
+    public static String userID, tipoUsuario;
 
     FirebaseAuth mAuth;
     FirebaseDatabase firebaseDatabase;
@@ -53,7 +54,9 @@ public class ShareActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         dbUsuarios = firebaseDatabase.getReference("USUARIOS");
 
-
+        Intent i = getIntent();
+        tipoUsuario = i.getStringExtra("tipoUsuario");
+        userID = mAuth.getCurrentUser().getUid();
 
         loadUserInformation();
 
@@ -66,6 +69,19 @@ public class ShareActivity extends AppCompatActivity {
                 telefone = editTextNumeroEnvio.getText().toString().trim();
                 restaurante = editTextNomeRestaurante.getText().toString().trim();
 
+                if(telefone.isEmpty()){
+                    editTextNumeroEnvio.setError("É necessário informar um numero de celular");
+                    editTextNumeroEnvio.requestFocus();
+                }
+                if(telefone.length() < 11){
+                    editTextNumeroEnvio.setError("É necessário informar um numero de celular com o DDD");
+                    editTextNumeroEnvio.requestFocus();
+                }
+                if(restaurante.isEmpty()){
+                    editTextNomeRestaurante.setError("É necessário informar um restaurante");
+                    editTextNomeRestaurante.requestFocus();
+                }
+
                 String mensagem = "Ola teste da mensagem com o restautante " + restaurante + ".";
 
                 mensagem = mensagem.replace(" ", "%20");
@@ -77,28 +93,30 @@ public class ShareActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     private void loadUserInformation() {
         dbUsuarios.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot usuarioSnapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot usuarioSnapshot : dataSnapshot.getChildren()) {
                     Usuario usuario = usuarioSnapshot.getValue(Usuario.class);
 
-                    //Atribuir valores
-                    textViewSobrenome.setText(usuario.getSobrenome() + ",");
-                    textViewNome.setText(usuario.getNome());
+                    if (usuario.getUsuarioId().equals(userID)) {
+
+                        //Atribuir valores
+                        textViewSobrenome.setText(usuario.getSobrenome() + ",");
+                        textViewNome.setText(usuario.getNome());
+                    }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
 
         final FirebaseUser user = mAuth.getCurrentUser();
-//        Usuario user = new Usuario();
 
         if (user != null) {
             if (user.getPhotoUrl() != null) {
@@ -114,42 +132,87 @@ public class ShareActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        Intent i = getIntent();
+        tipoUsuario = i.getStringExtra("tipoUsuario");
 
+        if (tipoUsuario.equals("Cliente")) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu, menu);
+        } else if (tipoUsuario.equals("Restaurante")) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_restaurante, menu);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (tipoUsuario.equals("Cliente")) {
+            switch (item.getItemId()) {
+                case R.id.menuCompartilhar:
+                    Intent intentCompartilhar = new Intent(getApplicationContext(), ShareActivity.class);
+                    intentCompartilhar.putExtra("tipoUsuario", tipoUsuario);
+                    startActivity(intentCompartilhar);
+                    break;
 
-        switch (item.getItemId()) {
-            case R.id.menuCompartilhar:
-                break;
+                case R.id.menuLogout:
+                    FirebaseAuth.getInstance().signOut();
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    break;
 
-            case R.id.menuLogout:
-                FirebaseAuth.getInstance().signOut();
-                finish();
-                startActivity(new Intent(this, MainActivity.class));
-                break;
+                case R.id.menuMeusDados:
+                    Intent intentMeusDados = new Intent(getApplicationContext(), MeusDados.class);
+                    intentMeusDados.putExtra("tipoUsuario", tipoUsuario);
+                    startActivity(intentMeusDados);
+                    break;
 
-            case R.id.menuMeusDados:
-                startActivity(new Intent(this, MeusDados.class));
-                break;
+                case R.id.menuCarrinho:
+                    Intent intentCarrinho = new Intent(getApplicationContext(), CarrinhoActivity.class);
+                    intentCarrinho.putExtra("tipoUsuario", tipoUsuario);
+                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                    break;
 
-            case R.id.menuCarrinho:
-                Toast.makeText(getApplicationContext(),"Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
-                break;
+                case R.id.menuHistorico:
+                    Intent intentHistorico = new Intent(getApplicationContext(), HistoricoListaActivity.class);
+                    intentHistorico.putExtra("tipoUsuario", tipoUsuario);
+                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                    break;
 
-            case R.id.menuHistorico:
-                Toast.makeText(getApplicationContext(),"Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
-                break;
+                case R.id.menuTelaInicial:
+                    Intent intentTelaInicial = new Intent(getApplicationContext(), ProfileActivity.class);
+                    intentTelaInicial.putExtra("tipoUsuario", tipoUsuario);
+                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                    break;
+            }
 
-            case R.id.menuTelaInicial:
-                Toast.makeText(getApplicationContext(),"Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
-                break;
+        } else if (tipoUsuario.equals("Restaurante")) {
+            switch (item.getItemId()) {
+                case R.id.menuLogout_Restaurante:
+                    FirebaseAuth.getInstance().signOut();
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    break;
+
+                case R.id.menuTelaInicial_Restaurante:
+                    Intent intentTelaInicial_Restaurante = new Intent(getApplicationContext(), RestauranteTelaInicialActivity.class);
+                    intentTelaInicial_Restaurante.putExtra("tipoUsuario", tipoUsuario);
+                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case R.id.menuCompartilhar_Restaurante:
+                    Intent intentCompartilhar_Restaurante = new Intent(getApplicationContext(), RestauranteTelaInicialActivity.class);
+                    intentCompartilhar_Restaurante.putExtra("tipoUsuario", tipoUsuario);
+                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case R.id.menuMeusDados_Restaurante:
+                    Intent intentMeusDados_Restaurante = new Intent(getApplicationContext(), RestauranteTelaInicialActivity.class);
+                    intentMeusDados_Restaurante.putExtra("tipoUsuario", tipoUsuario);
+                    Toast.makeText(getApplicationContext(), "Em desenvolvimento, aguarde.", Toast.LENGTH_SHORT).show();
+                    break;
+            }
         }
-
         return true;
     }
 
