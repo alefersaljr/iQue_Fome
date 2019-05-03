@@ -19,8 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,9 +40,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public static EditText editTextCep, editTextCidade, editTextRua, editTextNumero;
     public static Spinner spinnerOffice;
 
+    public static String userID, tipoUsuario;
+
     //Conexão com banco e progressBar
     private ProgressBar progressBar;
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth mAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference dbUsuarios;
 
@@ -79,7 +84,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         //Iniciando compornentes de banco e progressBar
         progressBar = findViewById(R.id.progressbar);
-        firebaseAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         dbUsuarios = firebaseDatabase.getReference("USUARIOS");
 
@@ -115,10 +120,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                String id = firebaseAuth.getCurrentUser().getUid();
+                String id = mAuth.getCurrentUser().getUid();
                 String nome = editTextNome.getText().toString().trim();
                 String sobrenome = editTextSobreNome.getText().toString().trim();
                 String telefone = editTextTelefone.getText().toString().trim();
@@ -176,13 +181,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     return;
                 }
 
-                if ((firebaseAuth.getCurrentUser().getEmail()).isEmpty()) {
+                if ((mAuth.getCurrentUser().getEmail()).isEmpty()) {
                     editTextEmail.setError("É necessário informar um email");
                     editTextEmail.requestFocus();
                     return;
                 }
 
-                if (!Patterns.EMAIL_ADDRESS.matcher((firebaseAuth.getCurrentUser().getEmail())).matches()) {
+                if (!Patterns.EMAIL_ADDRESS.matcher((mAuth.getCurrentUser().getEmail())).matches()) {
                     editTextEmail.setError("Favor informar um email válido");
                     editTextEmail.requestFocus();
                     return;
@@ -213,13 +218,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 //caso a validação seja feita com sucesso, vamos mostrar uma barra de progresso
                 progressBar.setVisibility(View.VISIBLE);
 
-                Usuario usuario = new Usuario(id, nome, sobrenome, telefone, celular, firebaseAuth.getCurrentUser().getEmail(), tipoUsuario, indicado, CEP, cidade, rua, complemento, cargo);
+                Usuario usuario = new Usuario(id, nome, sobrenome, telefone, celular, mAuth.getCurrentUser().getEmail(), tipoUsuario, indicado, CEP, cidade, rua, complemento, cargo);
 
                 dbUsuarios.child(id).setValue(usuario);
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
                     finish();
-                    startActivity(new Intent(SignUpActivity.this, UserTypeValidatorActivity.class));
+                    getUserType();
                     //usuário é cadastrado com sucesso e logado, iniciaremos a profile activity aqui
                     Toast.makeText(getApplicationContext(), "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
                 } else {
@@ -245,5 +250,28 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(this, MainActivity.class));
                 break;
         }
+    }
+
+    private void getUserType() {
+        dbUsuarios.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot usuarioSnapshot : dataSnapshot.getChildren()) {
+                    Usuario usuario = usuarioSnapshot.getValue(Usuario.class);
+                    userID = mAuth.getCurrentUser().getUid();
+
+                    if (usuario.getUsuarioId().equals(userID)) {
+                        tipoUsuario = usuario.getTipoUsuario();
+                        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        intent.putExtra("tipoUsuario", tipoUsuario);
+                        startActivity(intent);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 }

@@ -14,12 +14,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public static String userID, tipoUsuario;
 
     EditText editTextEmail, editTextPassword;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference dbUsuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Inicializando atributos do banco de dados
         mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        dbUsuarios = firebaseDatabase.getReference("USUARIOS");
 
         findViewById(R.id.textViewSignup).setOnClickListener(this);
         findViewById(R.id.textViewMissPassword).setOnClickListener(this);
@@ -73,10 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
-                    finish();
-                    Intent intent = new Intent(MainActivity.this, UserTypeValidatorActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    progressBar.setVisibility(View.VISIBLE);
+                    getUserType();
+                    progressBar.setVisibility(View.GONE);
                 } else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -89,9 +99,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
 
         if (mAuth.getCurrentUser() != null) {
-            finish();
-            Intent intent = new Intent(getApplicationContext(), UserTypeValidatorActivity.class);
-            startActivity(intent);
+            progressBar.setVisibility(View.VISIBLE);
+            getUserType();
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -112,5 +122,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 userLogin();
                 break;
         }
+    }
+
+    private void getUserType() {
+        dbUsuarios.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot usuarioSnapshot : dataSnapshot.getChildren()) {
+                    Usuario usuario = usuarioSnapshot.getValue(Usuario.class);
+                    userID = mAuth.getCurrentUser().getUid();
+
+                    if (usuario.getUsuarioId().equals(userID)) {
+                        tipoUsuario = usuario.getTipoUsuario();
+                        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        intent.putExtra("tipoUsuario", tipoUsuario);
+                        startActivity(intent);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 }
